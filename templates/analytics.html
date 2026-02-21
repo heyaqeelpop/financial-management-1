@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block title %}Analytics{% endblock %}
+
+{% block content %}
+<h1>📈 Analytics</h1>
+
+<!-- ================= Financial Health ================= -->
+<div class="card health-card">
+  <h3>
+    Financial Health Score
+    <span class="info-icon">🧠
+      <span class="tooltip">
+        This score reflects your overall financial stability.
+        <br><br>
+        • 60% weight: Savings rate (Income − Expenses)  
+        <br>
+        • 40% weight: Expense control  
+        <br><br>
+        Penalties apply for:
+        <br>
+        • Months with expenses but no income  
+        <br>
+        • Irregular or future-dated transactions
+      </span>
+    </span>
+  </h3>
+
+  <p class="health-score">{{ health_score }}/100</p>
+   <p>{{ health_status }}</p>
+</div>
+
+{% if insights %}
+<ul class="insights">
+  {% for tip in insights %}
+    <li>💡 {{ tip }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<hr>
+
+<!-- ================= Charts ================= -->
+
+<h3>Income vs Expense</h3>
+<canvas id="incomeExpenseChart"></canvas>
+<button onclick="downloadChart('incomeExpenseChart')">⬇ Download</button>
+
+<h3>Expense by Category</h3>
+<canvas id="categoryChart"></canvas>
+<button onclick="downloadChart('categoryChart')">⬇ Download</button>
+
+<h3>Monthly Income vs Expense</h3>
+<canvas id="monthlyChart"></canvas>
+<button onclick="downloadChart('monthlyChart')">⬇ Download</button>
+
+<h3>📈 Financial Health Trend</h3>
+<canvas id="healthTrendChart"></canvas>
+<button onclick="downloadChart('healthTrendChart')">⬇ Download</button>
+
+<!-- ================= JS Data ================= -->
+<script>
+  const totalIncome = {{ total_income | tojson }};
+  const totalExpense = {{ total_expense | tojson }};
+  const categoryData = {{ category_expense | tojson }};
+  const monthlyData = {{ monthly_data | tojson }};
+  const healthTrendData = {{ monthly_health | tojson }};
+</script>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

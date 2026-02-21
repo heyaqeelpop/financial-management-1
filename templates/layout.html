@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}Finance App{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2 class="logo">💰 Finance</h2>
+
+    <nav>
+      <a href="/dashboard">📊 Dashboard</a>
+      <a href="/ledger">📒 Ledger</a>
+      <a href="/budgets">💰 Budgets</a>
+      <a href="/goals">🎯 Goals</a>
+      <a href="/analytics">📈 Analytics</a>
+      <a href="/tools">🛠 Tools</a>
+      <a href="/settings">⚙ Settings</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Budgets{% endblock %}
+
+{% block content %}
+<h1>🎯 Budgets</h1>
+
+<hr>
+
+<h2>Add / Update Budget</h2>
+<form action="{{ url_for('budgets.add_budget') }}" method="POST">
+  <input type="text" name="category" placeholder="Category" required>
+  <input type="number" step="0.01" name="amount" placeholder="Amount" required>
+  <input type="number" name="month" placeholder="Month (1-12)" required>
+  <input type="number" name="year" placeholder="Year" required>
+  <button type="submit">💾 Save Budget</button>
+</form>
+
+<hr>
+
+<h2>Budget Overview</h2>
+
+{% if budget_data %}
+  {% for b in budget_data %}
+    <div class="card" style="padding:15px;border:1px solid #ccc;border-radius:8px;margin-bottom:15px;">
+      <h3>{{ b.category }} ({{ b.month }}/{{ b.year }})</h3>
+      <p>₹{{ b.spent }} / ₹{{ b.budget }}</p>
+
+      <div style="background:#eee;height:10px;border-radius:5px;">
+        <div style="
+          width: {{ b.percentage }}%;
+          height:10px;
+          background: {% if b.percentage < 80 %}green{% else %}red{% endif %};
+          border-radius:5px;">
+        </div>
+      </div>
+
+      <small>{{ b.percentage }}% used</small>
+    </div>
+  {% endfor %}
+{% else %}
+  <p>No budgets set yet.</p>
+{% endif %}
+
+{% endblock %}

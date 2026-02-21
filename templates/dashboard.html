@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="cards">
+  <div class="card">
+    <h3>Total Income</h3>
+    <p>₹{{ total_income }}</p>
+  </div>
+
+  <div class="card">
+    <h3>Total Expense</h3>
+    <p>₹{{ total_expense }}</p>
+  </div>
+
+  <div class="card">
+    <h3>Balance</h3>
+    <p>₹{{ balance }}</p>
+  </div>
+</div>
+
+<canvas id="incomeExpenseChart"></canvas>
+
+<script>
+  const totalIncome = {{ total_income | tojson }};
+  const totalExpense = {{ total_expense | tojson }};
+</script>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
